@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Projet{% endblock %}
+
+{% block body %}
+    <h1>Détails du Projet</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Nom :</dt>
+        <dd class="col-sm-9">{{ projet.nom }}</dd>
+        <dt class="col-sm-3">Durée :</dt>
+        <dd class="col-sm-9">{{ projet.duree }}</dd>
+        <dt class="col-sm-3">Pré-requis :</dt>
+        <dd class="col-sm-9">{{ projet.preRequis }}</dd>
+        <dt class="col-sm-3">Contenu :</dt>
+        <dd class="col-sm-9">{{ projet.contenu }}</dd>
+    </dl>
+{% if not projet.selected %}
+    <form action="{{ path('projet_select', {'id': projet.id}) }}" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token('select' ~ projet.id) }}">
+        <button type="submit">Sélectionner ce projet</button>
+    </form>
+{% endif %}
+    <a href="{{ path('projet_index') }}">Retour à la liste des projets</a>
+{% endblock %}
